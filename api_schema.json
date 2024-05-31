@@ -1,0 +1,180 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Computer Networking and Cybersecurity Teaching Assistant API",
+    "version": "1.0.0",
+    "description": "API for managing lesson plans, user interactions, and feedback for a course in Computer Networking and Cybersecurity."
+  },
+  "servers": [
+    {
+      "url": "https://gist.githubusercontent.com/Ramoszj/e78c7d066faea578ffe7ebbe47a72edc/raw/98224e1f494275cca651bf0fbce57b009c95ded8/computer_networking_cybersecurity_gpt_schema.json",
+      "description": "Base URL for the Teaching Assistant API"
+    }
+  ],
+  "paths": {
+    "/lessonPlans": {
+      "get": {
+        "summary": "Retrieve all lesson plans",
+        "operationId": "getAllLessonPlans",
+        "responses": {
+          "200": {
+            "description": "A list of all lesson plans",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/LessonPlan"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create a new lesson plan",
+        "operationId": "createLessonPlan",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LessonPlan"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Lesson plan created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonPlan"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/lessonPlans/{id}": {
+      "get": {
+        "summary": "Retrieve a specific lesson plan",
+        "operationId": "getLessonPlan",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "The ID of the lesson plan to retrieve"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detailed information about the lesson plan",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonPlan"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "summary": "Update a specific lesson plan",
+        "operationId": "updateLessonPlan",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LessonPlan"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Lesson plan updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LessonPlan"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete a specific lesson plan",
+        "operationId": "deleteLessonPlan",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Lesson plan deleted"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "LessonPlan": {
+        "type": "object",
+        "properties": {
+          "LessonPlanID": {
+            "type": "integer",
+            "description": "Unique identifier for the lesson plan"
+          },
+          "Title": {
+            "type": "string",
+            "description": "Title of the lesson plan"
+          },
+          "Content": {
+            "type": "string",
+            "description": "Detailed description of the lesson plan"
+          },
+          "Date": {
+            "type": "string",
+            "format": "date",
+            "description": "Scheduled date for the lesson"
+          },
+          "Resources": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of resources (URLs) used in the lesson"
+          }
+        }
+      }
+    }
+  }
+}
